@@ -60,3 +60,36 @@ INSERT INTO Funcionarios (nome, data_nascimento, salario, departamento_id, cargo
 ('Lucas Mendes', '1993-06-23', 5100.00, 1, 5);
 
 
+
+Aqui abaixo, as querys e suas respectivas funções:
+
+-- Funcionário com o maior salário
+SELECT * 
+FROM Funcionarios 
+ORDER BY salario DESC 
+LIMIT 1;
+
+-- Funcionário com o menor salário
+SELECT * 
+FROM Funcionarios 
+WHERE salario = (SELECT MIN(salario) FROM Funcionarios);
+
+-- Contagem total de funcionários
+SELECT COUNT(*) AS total_funcionarios FROM Funcionarios;
+
+-- Funcionários nascidos a partir de 1990
+SELECT * 
+FROM Funcionarios 
+WHERE data_nascimento >= '1990-01-01';
+
+-- Média salarial dos funcionários, arredondada para 2 casas decimais
+SELECT ROUND(AVG(salario), 2) AS media_salarial FROM Funcionarios;
+
+-- Extrair os 3 primeiros caracteres do nome do funcionário
+SELECT nome, SUBSTRING(nome, 1, 3) AS iniciais FROM Funcionarios;
+
+-- Contagem de funcionários por departamento
+SELECT d.nome AS departamento, COUNT(f.id) AS total_funcionarios
+FROM Funcionarios f
+JOIN Departamentos d ON f.departamento_id = d.id
+GROUP BY d.nome;
